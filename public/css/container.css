@@ -1,0 +1,60 @@
+#shortcutList{
+    border: 1px solid white;
+    margin-top: 20px;
+    border-radius: 10px;  
+    background-color: bisque;
+    width: 15%;
+    position: relative;
+    right: 0%;
+    left: 1%;
+    
+}
+
+#shortcutList a{
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+
+html{
+    background-color: beige;
+}
+
+#shortcutForm{
+    text-align: center;
+}
+
+#shortcutForm label{
+    font-size: 17px;
+    border: 1px solid red;
+    background-color: cornsilk;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+input[type="text"], input[type="url"]{
+    font-size: 17px;
+    margin-bottom: 18px;
+    border: 1.5px solid blue;
+    border-radius: 17px;
+}
+
+button[type="button"]{
+    border: 1px solid black;
+    border-radius: 17px;
+    height: 33px;
+    width: 170px;
+}
+
+button[type="button"]:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1{
+    text-align: center;
+    color: yellowgreen;
+    user-select: none;
+}

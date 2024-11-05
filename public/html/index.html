@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct検索・ショートカット</title>
+    <link rel="stylesheet" href="../css/Menu.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/Modal.css">
+</head>
+<body>
+
+    <div class="menu-btn">
+        <div class="menu-btn__burger"></div>
+    </div>
+
+    <nav class="nav">
+        <ul class="nav__list">
+            <li class="nav__item"><a href="#" onclick="window.open('../html/Password.html', 'newWindow', 'width=600,height=400'); return false;">パスワード生成</a></li>
+            <li class="nav__item"><a href="#" onclick="window.open('../html/URLtest.html', 'newWindow', 'width=600,height=400'); return false;">URLチェッカー</a></li>
+            <li class="nav__item"><a href="https://x.com/DORA_CH0114" target="_blank">作成者Twitter</a></li>
+            <li class="nav__item">
+                <a href="#" onclick="window.open('../html/News.html', 'newWindow', 'width=600, height=700'); return false;">
+                    News <span id="news-new-mark" class="new-mark">New!</span>
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="#" onclick="window.electronAPI.openSettingsWindow(); return false;">settings</a>
+            </li>
+            <!-- <li class="nav__item"><a href="#" onclick="window.open('../html/MyApp.html', 'newWindow', 'width=600,height=400'); return false;">Myアプリ</a></li> -->
+        </ul>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('index.html has loaded');
+        });
+    </script>
+    <script src="../js/Menu.js"></script>
+    
+
+
+    <div class="header">
+        
+        <ul>
+            <li><img src="../img/google-1015751_1280.png" alt="Google_icon" class="Twitter_icon"></li>
+            <li><img src="../img/icon0103.SVG" alt="Twitter" class="Twitter_icon"></li>
+            <li><img src="../img/icons8-アマゾン.svg" alt="Amazon_icon" class="Twitter_icon"></li>
+            <li><img src="../img/icons8-twitch-750.png" alt="Twitch_icon" class="Twitter_icon"></li>
+            <li><img src="../img/pngwing.com.png" alt="YouTube_icon" class="Twitter_icon"></li>
+            <li><img src="../img/Spotify_Icon_RGB_Green.png" alt="Spotify_icon" class="Twitter_icon"></li>
+        </ul>
+
+        <div id="clock" onclick="openCalendarApp()"></div>
+    </div>
+
+    <script>
+        const clock = document.getElementById("clock");
+ 
+     
+             function updateTime() {
+             
+             const now = new Date();
+             
+             const year = now.getFullYear();
+             const month = now.getMonth() + 1;
+             const date = now.getDate();
+             const day = now.getDay();
+             const days = ["日", "月", "火", "水", "木", "金", "土"];
+             
+             const hour = now.getHours();
+             const minute = now.getMinutes();
+             const second = now.getSeconds();
+             
+             clock.textContent = `${year}年${month}月${date}日 (${days[day]}) ${hour}:${minute}:${second}`;
+            }
+ 
+     
+         setInterval(updateTime, 1000);
+ 
+         
+         function openCalendarApp() {
+             // カレンダーアプリ
+             window.location.href = 'https://calendar.google.com/calendar/u/0/r?pli=1';
+            }
+    </script>
+
+    <script>
+        window.document.onkeydown = function(event){
+            if (event.keyCode == 123) {
+                event.preventDefault();
+                alert('ERROR: このページでは「F12」キーは無効化されているため、使用できません')
+            }
+        } 
+    </script>
+
+    <!-- <button id="app">アプリケーションを起動</button>
+    <div id="appModal" class="modal">
+        <div class="modal-content">
+            <h1>起動するappを選択してください</h1>
+            <span class="close">&times;</span>
+            <ul id="appList"></ul>
+            <button class="app-button" data-app="wallpaper_engine" onclick="appLauncher.launchApp('Wallpaper Engine')">Wallpaper Engine</button>
+            <button class="app-button" data-app="riot" onclick="appLauncher.launchApp('Riot')">Riot</button>
+            <button class="app-button" data-app="discord" onclick="appLauncher.launchApp('Discord')">Discord</button>
+            <button class="app-button" data-app="steam" onclick="appLauncher.launchApp('Steam')">Steam</button>
+            <button class="app-button" data-app="epic_games_launcher" onclick="appLauncher.launchApp('Epic Games Launcher')">Epic Games Launcher</button>
+        </div>
+    </div> -->
+    <!-- <script>
+        document.querySelectorAll('.app-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const appName = button.getAttribute('data-app');
+                fetch(`/launch?app=${appName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('サーバーからの応答が正常ではありません。');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            console.log(`${appName} を起動しました`);
+                        } else {
+                            console.error(`${appName} の起動に失敗しました: ${data.message}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('エラーが発生しました:', error);
+                    });
+            });
+        });
+    </script> -->
+    <script src="../js/Modal.js"></script>
+    
+    <div class="container">
+        <button id="registerButton">ショートカットを登録</button>
+        <div id="shortcutList"></div>
+    </div>
+    <script src="../js/shortcut.js"></script>
+
+    <div class="setting">
+        <a href="/html/setting.html" id="openSettingsWindow" onclick="window.open('../html/Custom.html', 'newWindow', 'width=800,height=600'); return false;">
+            <img src="../img/無料の設定歯車アイコン-removebg-preview.png" alt="" height="35px" width="35px">
+        </a>
+    </div>
+
+    <script>
+        let db;
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            // IndexedDBに接続
+            const dbRequest = indexedDB.open("SettingsDB", 1);
+    
+            dbRequest.onupgradeneeded = (event) => {
+                db = event.target.result;
+                db.createObjectStore("settings", { keyPath: "id" });
+            };
+    
+            dbRequest.onsuccess = (event) => {
+                db = event.target.result;
+                loadSettings();
+            };
+    
+            dbRequest.onerror = (event) => {
+                console.error("IndexedDBエラー:", event.target.error);
+            };
+    
+            // 親ウィンドウからメッセージを受信
+            window.addEventListener('message', (event) => {
+                if (event.origin === window.location.origin) {
+                    const { type, value } = event.data;
+                    if (type === 'backgroundImage') {
+                        document.body.style.backgroundImage = `url(${value})`;
+                        saveSetting('backgroundImage', value);
+                    } else if (type === 'buttonColors') {
+                        const { backgroundColor, textColor, hoverColor } = value;
+                        updateButtonStyles(backgroundColor, textColor, hoverColor);
+                        saveSetting('buttonColors', value);
+                    }
+                }
+            }, false);
+    
+            // IndexedDBに設定を保存する関数
+            function saveSetting(id, data) {
+                const transaction = db.transaction(["settings"], "readwrite");
+                const objectStore = transaction.objectStore("settings");
+                objectStore.put({ id, data });
+            }
+    
+            // IndexedDBから設定を読み込み適用する関数
+            function loadSettings() {
+                const transaction = db.transaction(["settings"], "readonly");
+                const objectStore = transaction.objectStore("settings");
+    
+                // 背景画像の設定を読み込み
+                const backgroundImageRequest = objectStore.get("backgroundImage");
+                backgroundImageRequest.onsuccess = (event) => {
+                    if (backgroundImageRequest.result) {
+                        document.body.style.backgroundImage = `url(${backgroundImageRequest.result.data})`;
+                    }
+                };
+    
+                // ボタンカラーの設定を読み込み
+                const buttonColorsRequest = objectStore.get("buttonColors");
+                buttonColorsRequest.onsuccess = (event) => {
+                    if (buttonColorsRequest.result) {
+                        const { backgroundColor, textColor, hoverColor } = buttonColorsRequest.result.data;
+                        updateButtonStyles(backgroundColor, textColor, hoverColor);
+                    }
+                };
+            }
+    
+            // ボタンのスタイルを更新する関数
+            function updateButtonStyles(backgroundColor, textColor, hoverColor) {
+                const buttons = document.querySelectorAll('input[type="submit"], input[type="reset"]');
+                buttons.forEach(button => {
+                    button.style.backgroundColor = backgroundColor;
+                    button.style.color = textColor;
+                    button.addEventListener('mouseenter', () => button.style.backgroundColor = hoverColor);
+                    button.addEventListener('mouseleave', () => button.style.backgroundColor = backgroundColor);
+                });
+            }
+        });
+    </script>
+    
+    
+    
+    <!-- すべてのフォームに class="search-form"　を追加してversion2.0.0を公開してください
+        　追加しない場合Window切り替えが動作しません 
+    -->
+
+    <div class="main">
+
+        <div class="Google">
+            <form action="https://www.google.co.jp/search" method="get" target="_blank"  rel="noopener noreferrer" id="googleForm" >
+                <div>
+                  <label for="search"><img src="../img/google_logo_icon_169090.png" alt="検索アイコン" class="img-icon"></label>
+                  <input type="search" id="search" name="q" placeholder="検索ワード入力" autocomplete="off">
+                  <input type="submit" name="submit" value="送信する">
+                  <input type="reset" value="リセット">
+                </div>
+            </form>
+        </div>
+
+        <div class="Amazon">
+            <form action="https://www.amazon.co.jp/s?k=" method="get" target="_blank" rel="noopener noreferrer" id="form" >
+                <div>
+                    <label for="amazon_search"><img src="../img/icons8-アマゾン.svg" alt="検索アイコン" class="img-icon"></label>
+                    <input type="search" id="amazon_search" name="k" placeholder="商品名を入力" autocomplete="off">
+                    <input type="submit" name="submit" value="商品を検索する">
+                    <input type="reset" value="リセット">
+                </div>
+            </form>
+        </div>
+
+        <div class="twitter">
+            <form action="https://twitter.com/search?q=" method="get" target=”_blank” rel="noopener noreferrer" >
+                <div>
+                    <label for="twitter"><img src="../img/icon0103.SVG" alt="検索アイコン" class="img-icon"></label>
+                    <input type="search" id="twitter" name="q" placeholder="キーワードを検索してみましょう" autocomplete="off">
+                    <input type="submit" name="submit" value="キーワードを検索">
+                    <input type="reset" value="リセット">
+                </div>
+            </form>
+        </div>
+
+        <div class="YouTube">
+            <form action="https://www.youtube.com/results?search_query=" method="get" target=”_blank” rel="noopener noreferrer" id="youtubeForm" >
+                <div>
+                    <label for="YouTube"><img src="../img/pngwing.com.png" alt="検索アイコン" class="img-icon"></label>
+                    <input type="search" id="YouTube" name="q" placeholder="動画タイトルを入力" autocomplete="off">
+                    <input type="submit" name="submit" value="検索する">
+                    <input type="reset" value="リセット">
+                </div>
+            
+            </form>
+        </div>
+        <!-- YouTubeCommand -->
+        <!-- <script src="../js/Command.js"></script> -->
+
+        <div class="YouTubeMusic">
+            <form action="https://music.youtube.com/search?" method="get" target=”_blank” rel="noopener noreferrer" id="musicForm" >
+                <div>
+                <label for="YouTubeMusic"><img src="../img/Youtube_Music_icon.svg" alt="検索アイコン" class="img-icon"></label>
+                <input type="search" id="YouTubeMusic" name="q" placeholder="音楽を入力" autocomplete="off">
+                <input type="submit" name="submit" value="音楽を検索する">
+                <input type="reset" value="リセット">
+                </div>
+            </form>
+        </div>
+
+        <div class="TwitchSearch">
+            <form action="https://www.twitch.tv/search?term=" method="get" target="_blank" rel="noopener noreferrer" >
+              <div>
+                <label for="TwitchSearch"><img src="../img/icons8-twitch-750.png" alt="検索アイコン" class="img-icon"></label>
+                <input type="search" id="TwitchSearch" name="term" placeholder="ゲーム名、配信者名を入力" autocomplete="on"><!-- 次回OFF -->
+                <input type="submit" name="submit" value="Twitchで検索">
+                <input type="reset" value="リセット">
+              </div>
+            </form>
+        </div>
+    </div>
+    <script src="../js/Commandlist.js"></script>
+    <script src="../js/Browser.js"></script>
+
+    <div id="anime">
+        <img src="../img/icons8-映画-96.png" alt="" class="service-icon">
+        <form id="searchForm" >
+            <select id="serviceSelect">
+              <option value="amazon">Amazon Prime Video</option>
+              <option value="unext">U-NEXT</option>
+              <option value="hulu">Hulu</option>
+              <option value="netflix">Netflix</option>
+              <option value="dmm">DMM TV</option>
+            </select>
+            <input type="search" id="searchKeyword" placeholder="キーワードを入力">
+            <input type="submit" value="検索" class="Streaming_submit">
+            <input type="reset" value="Reset">
+        </form>
+    </div>
+    <script src="../js/anime.js"></script>
+
+    <div class="S">
+        <h3>ショートカットアイコン</h3>
+        <div class="Shortcuticon">
+            <a href="https://music.youtube.com/"><img src="../img/Youtube_Music_icon.svg"alt="YouTubeMusic" class="icon"></a>
+            <a href="https://twitter.com/home?lang=ja"><img src="../img/icon0103.png" alt="TwitterHOME" class="icon" ></a>
+            <a href="https://store.steampowered.com/?l=japanese"><img src="../img/steam-logo-transparent.png" alt="steam" class="icon"></a>
+            <a href="https://steamdb.info/"><img src="../img/steamdb_logo_icon_249512.svg" alt="steamDB" class="icon"></a>
+            <a href="https://open.spotify.com/intl-ja"><img src="../img/Spotify_Icon_RGB_Green.png" alt="spotify" class="icon"></a>
+            <a href="https://www.twitch.tv/"><img src="../img/icons8-twitch-64.png" alt="Twitch" class="icon"></a>
+        </div>
+    </div>
+
+    <!-- <footer>
+        <p>&copy; 2024 Directsearch-Shortcut</p>
+        <p>version(β)0.0.3</p>
+    </footer> -->
+</body>      
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortcut</title>
+  <link rel="stylesheet" href="../css/container.css">
+</head>
+<body>
+    
+<h1>ショートカット登録</h1>
+<form id="shortcutForm">
+  <label for="name">名前</label>
+  <input type="text" id="name" name="name" placeholder="ショートカットの名前"><br>
+  <label for="url">URL</label>
+  <input type="url" id="url" name="url" placeholder="https://www.sample.com"><br>
+  <button type="button" id="registerShortcut">ショートカットを追加</button>
+</form>
+
+<script>
+document.getElementById('registerShortcut').addEventListener('click', function() {
+  var name = document.getElementById('name').value;
+  var url = document.getElementById('url').value;
+
+  if (name && url) {
+    // 親ウィンドウにショートカット情報を送信
+    window.opener.postMessage({ shortcut: { name: name, url: url } }, '*');
+    window.close();
+  } else {
+    alert("名前とURLを入力してください。");
+  }
+});
+</script>
+</body>
+</html>

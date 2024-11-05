@@ -1,0 +1,258 @@
+body{
+    background-image: url(../img/仮想空間風_5_アートボード-1.svg);
+    background-size: cover;
+    user-select: none;
+}
+
+
+
+
+/* ヘッダー内のアイコンリストを横並びにする */
+.header ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* 各リストアイテムに適切な余白を与える */
+.header li {
+    margin-right: 20px; /* 右側に余白を追加 */
+}
+
+/* 最後のリストアイテムの右側の余白をなくす */
+.header li:last-child {
+    margin-right: 0;
+}
+
+/* アイコンのスタイルを調整 */
+.header li img {
+    max-width: 100%;
+    width: 100%;
+    height: 65px;
+    object-fit: contain;
+    margin-top: 80px;
+    margin-bottom: 28px;
+    margin-right: 24px;
+}
+
+
+
+/* 時計のスタイル */
+#clock {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 255, 255, 0.5);
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Dela Gothic One', sans-serif;
+}
+
+/* メインのレイアウト設定（3列×2行） */
+.main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+    margin-top: 150px;
+}
+
+/* 各検索フォームの共通スタイル */
+.Google, .Amazon, .twitter, .YouTube, .YouTubeMusic, .TwitchSearch {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.img-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+input[type="search"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"], input[type="reset"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 27px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: #45a049;
+}
+
+/* app、registerButton、setting要素の配置 */
+#app {
+    position: absolute;
+    top: 50px;  /* サイトの上端からの距離 */
+    left: 10px; /* サイトの左端からの距離 */
+    padding: 10px 15px;
+    background-color: #ffb6c1; /* ピンク色に変更 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /* テキストが折り返されないようにする */
+    z-index: 10; /* 他の要素と重ならないように調整 */
+}
+
+/* container（ショートカットボタン）の配置 */
+.container {
+    position: absolute;
+    top: 60px; /* appボタンの下に配置 */
+    left: 10px;
+    z-index: 10;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    height: 30px; /* フッターの高さを指定 */
+    font-size: 0.7em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box; /* padding と height の調整 */
+}
+
+#registerButton {
+    padding: 10px 15px;
+    background-color: #7fff00; /* グリーン色に変更 */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    margin-top: 50px;
+}
+
+/* settingアイコンの配置 */
+.setting {
+    position: absolute;
+    top: 10px; /* appボタンの位置に合わせて調整 */
+    right: 85%; /* 右上に配置 */
+    z-index: 10;
+}
+
+.S{
+    max-width: 900px;
+    display: block;
+    text-align: center;
+    border: solid #ff0000 2px;
+    border-radius: 20px;
+    margin-left: 500px;
+    margin-bottom: 28px;
+    margin-top: 10px;
+}
+
+.S h3{
+    color: rgb(255, 136, 0);
+    -webkit-text-stroke: 0.5px #000000;
+    margin-bottom: 7px;
+}
+
+.icon{
+    width: 50px;
+    height: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border: 3px solid rgb(193, 226, 8);
+    border-radius: 3px;
+    display: inline-block;
+}
+
+
+#anime {
+    text-align: center; /* 親要素を中央揃えにする */
+}
+
+#searchForm {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* 子要素を中央揃えにする */
+    width: 450px; /* フォーム全体の幅を調整 */
+    margin: 0 auto; /* フォームを中央に配置 */
+}
+
+#serviceSelect {
+    width: 100%; /* ドロップダウンリストの幅を広げる */
+    height: 40px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+
+/* settingアイコン内のリンクや画像のスタイル */
+#openSettingsWindow {
+    display: inline-block;
+    cursor: pointer;
+}
+
+#openSettingsWindow img {
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+/* ホバー時のスタイル */
+#app:hover, #registerButton:hover {
+    background-color: #45a049; /* ボタンのホバー時の色 */
+    transform: scale(1.1); /* settingアイコンのホバー時に拡大 */
+}
+
+/* ボタンのフォーカス時のスタイル（キーボード操作用） */
+#app:focus, #registerButton:focus, #openSettingsWindow:focus {
+    outline: 2px solid #45a049;
+}
+
+/* ショートカットリストCSS */
+#shortcutList{
+    border: 1px solid white;
+    margin-top: 20px;
+    border-radius: 10px;  
+    background-color: bisque;
+    width: 100%;
+    position: relative;
+    right: -10%;
+    
+}
+
+#shortcutList a{
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#news-new-mark{
+    color: #ff0000;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
+    background-color: beige;
+}

@@ -1,0 +1,64 @@
+{
+  "name": "directsearch-shortcut",
+  "version": "1.1.1",
+  "main": "main.js",
+  "description": "ダイレクト検索サイトのapp版です",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron . --locale=ja-JP",
+    "server": "node index.js",
+    "build": "electron-builder --win --publish never",
+    "publish": "electron-builder --win --publish always",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true
+    },
+    "appId": "com.example.directsearch-shortcut",
+    "productName": "Directsearch Shortcut",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "sindora-0114",
+        "repo": "Directsearch-Shortcut",
+        "private": true
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "public/img/サイトアイコン_メイン-_小_.ico"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.js",
+      "public/**/*",
+      "node_modules/**/*"
+    ]
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "axios": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "electron-log": "^5.2.0",
+    "electron-store": "^10.0.0",
+    "electron-updater": "^6.3.9",
+    "express": "^4.20.0",
+    "keypress": "^0.2.1",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "electron": "^32.0.2",
+    "electron-builder": "^25.1.8"
+  }
+}

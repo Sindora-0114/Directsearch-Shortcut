@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせとアップデート情報</title>
+    <link rel="stylesheet" href="../css/News.css">
+</head>
+<body>
+
+    <!-- タブヘッダー -->
+    <header>
+        <h2>お知らせとアップデート情報</h2>
+        <nav>
+            <button class="tab-button active" onclick="showTab('news')">
+                お知らせ <span class="new-tab-mark" id="news-new-mark">New!</span>
+            </button>
+            <button class="tab-button" onclick="showTab('updates')">
+                アップデート情報 <span class="new-tab-mark" id="updates-new-mark">New!</span>
+            </button>
+            <button class="tab-button" onclick="showTab('bugs')">
+                不具合情報 <span class="new-tab-mark" id="bugs-new-mark">New!</span>
+            </button>
+            <button class="tab-button" onclick="showTab('others')">
+                その他 <span class="new-tab-mark" id="others-new-mark">New!</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- コンテンツエリア -->
+    <main>
+        <!-- お知らせセクション -->
+        <section id="news" class="tab-content active">
+            <h3>お知らせ</h3>
+
+            <article data-new="true">
+                <span class="new-mark">New!</span>
+                <h4>βversion 1.1.1をリリースしました</h4>
+                <p>更新内容に関しましては<a href="#" onclick="showTab('updates')">こちら</a>から確認できます</p>
+            </article>
+
+            <article>
+                <h4>βversion 1.0.0リリース開始！！</h4>
+                <p>ダウンロードして頂きありがとうございます</p>
+                <p>β板のためいくつか不具合がございますがご了承ください</p>
+                <p>現在確認できている不具合は <a href="#" onclick="showTab('bugs')">こちら</a> から確認できます</p>
+            </article>
+
+        </section>
+
+        <!-- アップデート情報セクション -->
+        <section id="updates" class="tab-content">
+            <h3>アップデート情報</h3>
+            <article data-new="true">
+                <span class="new-mark">New!</span>
+                <h4>βversion 1.1.1更新内容</h4>
+                <p>一部画像が正しく表示されていない問題を修正しました</p>
+                <p>アプリケーション起動ボタンを一時的に削除しました</p>
+                <p>Shortcut登録Windowが正しいスタイルで表示されない問題を修正しました</p>
+                <br>
+                <p>アプリケーション起動ボタンの削除理由は<a href="#" onclick="showTab('others')">こちら</a>から確認お願いします</p>
+            </article>
+        </section>
+
+        <!-- 不具合情報セクション -->
+        <section id="bugs" class="tab-content">
+            <h3>不具合情報</h3>
+
+            <article>
+                <h4>βversion 1.1.1で確認できてる不具合は見つかりませんでした</h4>
+            </article>
+
+            <article>
+                <h4>現在(βversion 1.0.0)確認できている不具合一覧です</h4>
+                <p>アプリケーションボタンが正しく動作をしない</p>
+                <p>一部画像が正しく表示されていない</p>
+            </article>
+
+            <article>
+                <h4>新たな不具合等発見した場合</h4>
+                <p>申し訳有りませんがアプリケーション左上の「サポート」から「Discord」を選択していただくか、すでにご参加の場合は直接Discord内の「バグ・不具合・システム追加要望」に不具合内容を書き込んでください</p>
+            </article>
+        </section>
+
+        <!-- その他セクション -->
+        <section id="others" class="tab-content">
+            <h3>その他</h3>
+            <article data-new="true">
+                <span class="new-mark">New!</span>
+                <h4>アプリケーション起動ボタンの一時的削除について</h4>
+                <p>web板から有りました「アプリケーション起動ボタン」ですが実装当時から多数の不具合があり、アプリケーション板でも引き続き不具合が発生しているため一時的に削除いたしました</p>
+                <p>この機能自体は削除するつもりはないためリニューアルし復活させる予定です。<br>復活までお待ち下さい</p>
+            </article>
+        </section>
+    </main>
+
+    <!-- ウィンドウを閉じるボタン -->
+    <button class="close-button" onclick="closeWindow()">ウィンドウを閉じる</button>
+
+    <footer>
+        <p>&copy; 2024 Directsearch-Shortcut</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.id === tabId) tab.classList.add('active');
+            });
+
+            buttons.forEach(button => button.classList.remove('active'));
+            document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+            // タブを開いたとき、新着マークを消去
+            document.querySelector(`#${tabId}-new-mark`).style.display = 'none';
+        }
+
+        function closeWindow() {
+            window.close();
+        }
+
+        // 新着マークの設定と表示
+        function updateNewTabMarks() {
+            const tabSections = document.querySelectorAll('.tab-content');
+            tabSections.forEach(section => {
+                const hasNewContent = section.querySelector('[data-new="true"]');
+                const tabMark = document.querySelector(`#${section.id}-new-mark`);
+                if (hasNewContent) {
+                    tabMark.style.display = 'inline';
+                } else {
+                    tabMark.style.display = 'none';
+                }
+            });
+        }
+
+        // ページ読み込み時に新着マークを初期化
+        document.addEventListener('DOMContentLoaded', updateNewTabMarks);
+    </script>
+</body>
+</html>

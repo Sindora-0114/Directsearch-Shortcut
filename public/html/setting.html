@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/test.css">
+    <title>設定MENU</title>
+</head>
+<style>
+    body{
+        background-color: #a1a1a1;
+        background-size: cover;
+        background-image: none;
+    }
+
+    /* ダイアログのスタイル */
+    #customDialog {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #000;
+        border-radius: 10px;
+        z-index: 1000;
+    }
+    /* オーバーレイのスタイル */
+    #overlay {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    #customOkButton{
+        border:  1px solid red;
+        border-radius: 10px;
+        margin-right: 15px;
+        margin-left: 30px;
+        padding: 10px;
+        transition: all 0.5s;
+        background-color: rgba(98, 96, 99, 0.4);
+        &:hover{
+            opacity: 0.7;
+        }
+    }
+
+    #customNOButton{
+        border:  1px solid red;
+        border-radius: 10px;
+        margin-right: 15px;
+        margin-left: 30px;
+        padding: 10px;
+        background-color: rgba(98, 96, 99, 0.4);
+
+        &:hover{
+            opacity: 0.7;
+        }
+    }
+
+    #bg-color,
+    #text-color,
+    #hover-color{
+        width: 90%;
+        user-select: none;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        margin-left: 40px;
+        margin-right: 20px;
+    }
+
+    /* カラースタイル */
+    .user_color{
+        background-color: white;
+        padding: 0px 10px 0px 10px;
+        margin-right: 10px;
+        border: 3px solid red;
+        border-radius: 10px;
+        transition: all 0.5s;
+        display: block;
+        padding-left: 40%;
+        margin-left: 10px;
+        margin-top: 20px;
+        &:hover{
+           opacity: 0.7;
+        }
+    }
+
+    .close input[type = "button"]{
+       margin-top: 10%;
+    }
+
+    .button{
+        margin-left: 38%;
+        margin-right: 1%;
+    }
+
+    input#saveAndClose{
+        margin-top: 13%;
+    }
+</style>
+<body>
+    <div class="bg">
+        <label for="bg-upload" class="site-bg">
+            背景画像選択
+            <input type="file"  id="bg-upload" accept=".jpg, .png, .svg, .gif " >
+        </label>
+    </div>
+
+    <div class="colors">
+        <label for="bg-color" class="user_color">ボタンの背景色選択: </label>
+        <input type="color" id="bg-color" value="#FFEBCD">
+
+        <label for="text-color" class="user_color">ボタンの文字色選択: </label>
+        <input type="color" id="text-color" value="#0400FF">
+
+        <label for="hover-color" class="user_color">ボタンのホバー色選択: </label>
+        <input type="color" id="hover-color" value="#45a049">
+    </div>
+
+    <div class="close">
+        <input type="button" value="保存して閉じる" class="button" id="saveAndClose" onclick="window.close()">
+        <input type="button" id="close_button"  value="保存せずに閉じる" >
+    </div>
+
+    <!-- カスタムダイアログ -->
+    <div id="overlay"></div>
+    <div id="customDialog">
+        <p>設定した内容は保存されません</p>
+        <br>
+        <input type="button" id="customOkButton" value="OK">
+        <input type="button" value="保存して閉じる" class="button" id="save" onclick="window.close()">
+    </div>
+
+    <!-- 背景スクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const bgUpload = document.getElementById('bg-upload');
+            const saveButton = document.getElementById('saveAndClose');
+            const bgColorInput = document.getElementById('bg-color');
+            const textColorInput = document.getElementById('text-color');
+            const hoverColorInput = document.getElementById('hover-color');
+            const saveAndClose = document.getElementById("save");
+            let selectedImageUrl = '';
+
+            bgUpload.addEventListener('change', function(e) {
+                const file = bgUpload.files[0];
+                var validFileTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif']; // 許可するファイルタイプ
+                if (file) {
+                    if (file.size > 6000000) { 
+                        alert('ファイルは5MB以内である必要があります。');
+                        e.target.value = ''
+                        return
+                    }
+
+                    if (!validFileTypes.includes(file.type)) { 
+                    alert('ファイルは.jpg, .png, .svgのいずれかである必要があります。');
+                    e.target.value = ''; 
+                    return; 
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        selectedImageUrl = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            saveButton.addEventListener('click', function() {
+                if (selectedImageUrl) {
+                    window.opener.postMessage({ type: 'backgroundImage', value: selectedImageUrl }, window.location.origin)
+                }
+
+                const buttonColors = {
+                    backgroundColor: bgColorInput.value,
+                    textColor: textColorInput.value,
+                    hoverColor: hoverColorInput.value
+                };
+                window.opener.postMessage({ type: 'buttonColors', value: buttonColors }, window.location.origin);
+                window.close();
+            });
+
+            saveAndClose.addEventListener('click', function() {
+                if (selectedImageUrl) {
+                    window.opener.postMessage({ type: 'backgroundImage', value: selectedImageUrl }, window.location.origin)
+                }
+
+                const buttonColors = {
+                    backgroundColor: bgColorInput.value,
+                    textColor: textColorInput.value,
+                    hoverColor: hoverColorInput.value
+                };
+                window.opener.postMessage({ type: 'buttonColors', value: buttonColors }, window.location.origin);
+                window.close();
+            })
+        });
+    </script>
+
+    <script>
+        const closeButton = document.getElementById("close_button")
+        const customDialog = document.getElementById("customDialog")
+        const overlay = document.getElementById("overlay")
+        const customOkButton = document.getElementById("customOkButton")
+        /* const customNOButton = document.getElementById("customNOButton") */
+
+        closeButton.onclick = function(){
+            customDialog.style.display = 'block'
+            overlay.style.display = 'block'
+        }
+
+        /* customNOButton.addEventListener('click', function() {
+                if (selectedImageUrl) {
+                    window.opener.postMessage({ type: 'backgroundImage', value: selectedImageUrl }, window.location.origin)
+                }
+
+                const buttonColors = {
+                    backgroundColor: bgColorInput.value,
+                    textColor: textColorInput.value,
+                    hoverColor: hoverColorInput.value
+                };
+                window.opener.postMessage({ type: 'buttonColors', value: buttonColors }, window.location.origin);
+                window.close();
+        });
+ */
+        customOkButton.onclick = function() {
+            window.close()
+
+            return
+        }
+
+        overlay.onclick = function(){
+            customDialog.style.display = 'none'
+            overlay.style.display = 'none'
+        }
+    </script>
+</body>
+</html>

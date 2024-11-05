@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/test.css">
+    <title>設定MENU</title>
+</head>
+<style>
+body {
+    background-color: #a1a1a1;
+    background-size: cover;
+    background-image: none;
+}
+
+/* ダイアログのスタイル */
+#customDialog {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+/* オーバーレイのスタイル */
+#overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* ボタンのスタイル */
+#customOkButton, #customNOButton {
+    border: 1px solid red;
+    border-radius: 10px;
+    margin: 15px 30px;
+    padding: 10px;
+    background-color: rgba(98, 96, 99, 0.4);
+    transition: all 0.5s;
+}
+
+#customOkButton:hover, #customNOButton:hover {
+    opacity: 0.7;
+}
+
+/* カラーピッカーと入力フィールドのスタイル */
+#bg-color, #text-color, #hover-color {
+    width: 90%;
+    user-select: none;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin: 0 20px 20px 40px;
+}
+
+/* カラースタイル */
+.user_color {
+    background-color: white;
+    padding: 0 10px;
+    margin: 20px 10px 0;
+    border: 3px solid red;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    transition: all 0.5s;
+}
+
+.user_color:hover {
+    opacity: 0.7;
+}
+
+/* ボタンのカスタムスタイル */
+.custom-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 27px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #45a049;
+}
+
+/* ダイアログボタン配置 */
+.close input[type="button"] {
+    margin-top: 10%;
+}
+.button {
+    margin: 0 1% 0 38%;
+}
+
+/* メインボタンスタイル */
+.button, #customOkButton, #customCancelButton {
+    width: 45%;
+    padding: 12px;
+    margin: 10px 2%;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 保存して閉じるボタン */
+#saveAndClose {
+    background-color: #28a745;
+}
+
+#saveAndClose:hover {
+    background-color: #218838;
+}
+
+/* 保存せずに閉じるボタン */
+#close_button {
+    background-color: #dc3545;
+}
+
+#close_button:hover {
+    background-color: #c82333;
+}
+
+/* ダイアログのOKボタン */
+#customOkButton {
+    background-color: #007bff;
+}
+
+#customOkButton:hover {
+    background-color: #0069d9;
+}
+
+/* ダイアログのキャンセルボタン */
+#customCancelButton {
+    background-color: #6c757d;
+}
+
+#customCancelButton:hover {
+    background-color: #5a6268;
+}
+
+/* オーバーレイスタイル */
+#overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* ダイアログボックス */
+#customDialog {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+}
+
+#customDialog p {
+    margin: 0 0 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 背景画像選択ボタンエリア */
+.bg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* 背景画像ラベルスタイル */
+.site-bg {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #5a9bd4; /* 青色基調 */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.site-bg:hover {
+    background-color: #428bca; /* ホバー時の色 */
+    transform: translateY(-2px); /* 浮き上がる効果 */
+}
+
+#bg-upload {
+    display: none; /* inputタグを非表示にし、カスタムラベルをクリックで操作 */
+}
+
+/* 画像プレビュー */
+#bg-preview {
+    margin-top: 15px;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+</style>
+<body>
+    <!-- <div class="bg">
+        <label for="bg-upload" class="site-bg">背景画像選択</label>
+        <input type="file" id="bg-upload" accept=".jpg, .png, .svg, .gif">
+        <img id="bg-preview" src="" alt="プレビュー画像" style="display: none;">
+    </div> -->
+
+    <div class="colors">
+        <label for="bg-color" class="user_color">ボタンの背景色選択:</label>
+        <input type="color" id="bg-color" value="#FFEBCD">
+
+        <label for="text-color" class="user_color">ボタンの文字色選択:</label>
+        <input type="color" id="text-color" value="#0400FF">
+
+        <label for="hover-color" class="user_color">ボタンのホバー色選択:</label>
+        <input type="color" id="hover-color" value="#45a049">
+    </div>
+
+    <div class="bg">
+        <label for="bg-upload" class="site-bg">
+            背景画像選択
+            <input type="file" id="bg-upload" accept=".jpg, .png, .svg, .gif">
+        </label>
+        <img id="bgPreview" style="display: none; margin-top: 10px; max-width: 100%; border-radius: 8px;" alt="プレビュー画像">
+    </div>
+
+    <div class="close">
+        <input type="button" value="保存して閉じる" class="button" id="saveAndClose">
+        <input type="button" id="close_button" value="保存せずに閉じる" class="button">
+    </div>
+
+    <!-- カスタムダイアログ -->
+    <div id="overlay"></div>
+    <div id="customDialog">
+        <p>設定した内容は保存されません。よろしいですか？</p>
+        <input type="button" id="customOkButton" value="OK">
+        <input type="button" value="キャンセル" id="customCancelButton">
+    </div>
+
+    <!-- スクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bgUpload = document.getElementById('bg-upload');
+            const saveButton = document.getElementById('saveAndClose');
+            const bgColorInput = document.getElementById('bg-color');
+            const textColorInput = document.getElementById('text-color');
+            const hoverColorInput = document.getElementById('hover-color');
+            const closeButton = document.getElementById("close_button");
+            const customDialog = document.getElementById("customDialog");
+            const overlay = document.getElementById("overlay");
+            const customOkButton = document.getElementById("customOkButton");
+            const customCancelButton = document.getElementById("customCancelButton");
+            let selectedImageUrl = '';
+
+            // 背景画像のアップロード処理
+            const bgPreview = document.getElementById('bgPreview'); // プレビュー用の画像タグ
+
+        bgUpload.addEventListener('change', function(e) {
+            const file = bgUpload.files[0];
+            const validFileTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif'];
+
+            try {
+                if (file && file.size > 5000000) {
+                    alert('Error: ファイルは5MB以内である必要があります。');
+                    e.target.value = ''; 
+                    throw new Error('ファイルサイズが5MBを超えています');
+                }
+
+                if (!validFileTypes.includes(file.type)) {
+                    alert('Error: ファイルは.jpg, .png, .svg, .gifのいずれかである必要があります。');
+                    e.target.value = '';
+                    throw new Error('ファイルタイプが無効です');
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => { 
+                    selectedImageUrl = e.target.result;
+                    bgPreview.src = selectedImageUrl; // プレビュー画像を設定
+                    bgPreview.style.display = 'block'; // プレビュー表示
+                };
+                reader.readAsDataURL(file);
+
+            } catch (error) {
+                console.error(error.message); 
+                bgPreview.style.display = 'none'; // プレビュー非表示
+            }
+        });
+
+            // 設定を保存して閉じる
+            saveButton.addEventListener('click', function() {
+                const buttonColors = {
+                    backgroundColor: bgColorInput.value,
+                    textColor: textColorInput.value,
+                    hoverColor: hoverColorInput.value
+                };
+                // 親ウィンドウに設定を送信
+                if (selectedImageUrl) {
+                    window.opener.postMessage({ type: 'backgroundImage', value: selectedImageUrl }, window.location.origin);
+                }
+                window.opener.postMessage({ type: 'buttonColors', value: buttonColors }, window.location.origin);
+                window.close();
+            });
+
+            // ダイアログ表示
+            closeButton.onclick = function() {
+                customDialog.style.display = 'block';
+                overlay.style.display = 'block';
+            };
+
+            // 「OK」ボタンがクリックされた場合、設定せずに閉じる
+            customOkButton.onclick = function() {
+                window.close();
+            };
+
+            // 「キャンセル」ボタンがクリックされた場合、ダイアログを閉じる
+            customCancelButton.onclick = function() {
+                customDialog.style.display = 'none';
+                overlay.style.display = 'none';
+            };
+
+            // オーバーレイクリックでダイアログを閉じる
+            overlay.onclick = function() {
+                customDialog.style.display = 'none';
+                overlay.style.display = 'none';
+            };
+        });
+    </script>
+</body>
+</html>

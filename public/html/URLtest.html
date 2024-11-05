@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Checker</title>
+</head>
+<body>
+    <h1>URLチェッカー</h1>
+
+    <h1>現在作成中です！！！もうしばらくお待ち下さい！！！</h1>
+    <!-- <input type="text" id="urlInput" placeholder="URLを入力してください">
+    <button onclick="checkURL()">チェック</button>
+    <button onclick="resetInput()">リセット</button>
+    <p id="result"></p>
+    <button onclick="window.close()">ウィンドウを閉じる</button>
+ -->
+    <script>
+        async function checkURL() {
+            const urlInput = document.getElementById('urlInput').value;
+            const result = document.getElementById('result');
+
+            try {
+                // 明示的にサーバーのURLとポート番号を指定
+                const response = await fetch('http://localhost:3000/check-url', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: urlInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTPエラー: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.safe) {
+                    result.textContent = 'このURLは安全です。';
+                    result.style.color = 'green';
+                } else {
+                    result.textContent = 'このURLは安全ではありません!';
+                    result.style.color = 'red';
+                }
+            } catch (error) {
+                result.textContent = `エラーが発生しました。詳細: ${error.message}`;
+                result.style.color = 'orange';
+                console.error('Error:', error);
+            }
+        }
+
+        function resetInput() {
+            // 入力フィールドを空白にする
+            document.getElementById('urlInput').value = '';
+            // 結果の表示をクリアする（必要に応じて）
+            document.getElementById('result').textContent = '';
+        }
+    </script>
+</body>
+</html>

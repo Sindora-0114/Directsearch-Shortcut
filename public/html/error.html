@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ショートカット登録エラー</title>
+</head>
+<style>
+    h1{
+        text-align: center;
+        color: red;
+    }
+
+    h3{
+        border: 2px solid black;
+        text-align: center;
+        background-color: antiquewhite;
+    }
+
+    html{
+        background-color: beige;
+    }
+</style>
+<body>
+    <h1>WARNING</h1>
+    <h3>以下のいずれかのERRORが発生しています。<br>確認の上対処してください。</h3>
+    <div class="list">
+        <ul>
+            <li>ショートカットの最大登録数に達しています(登録最大数：6個まで)</li>
+            <li>ショートカット登録時に「名前」「サイトURL」の入力がされていません</li>
+            <li>技術トラブルによりショートカットの登録が成功しませんでした</li>
+        </ul>
+    </div>
+
+    <div class="approach">
+        <h3>各エラーの対処法</h3>
+        <p>ショートカットんの登録最大数に達している場合は不要なショートカットを削除し<br>再度登録し直してください。</p>
+        <br>
+        <p>ショートカット登録時に[名前][サイトURL]を正しく入力し直してください</p>
+        <br>
+        <p>大変申し訳ありません。技術的トラブルにより、ショートカットの登録が出来ませんでした。<br>
+            お手数ですが再度登録し直してください。（※1）
+        </p>
+        <br>
+        <p><small>※1 何度も発生する場合お手数ですが各discordServer内に報告してください。</small></p>
+    </div>
+    <input type="button" onclick="window.close()" value="ページを閉じる">
+</body>
+</html>
