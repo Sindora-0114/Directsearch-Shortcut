@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Electron build output
+dist/
+out/
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional npm cache directory
+.npm
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build directory
+build/
+
+# Package lock files (optional)
+yarn.lock
+package-lock.json
